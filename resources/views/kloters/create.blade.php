@@ -1,6 +1,25 @@
 @extends('master')
 @section('title', 'Tambah Kloter - CDIS')
-
+@section('menu')
+    <li class="nav-item">
+        <a class="nav-link active" href="/kloters">Kloter</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/members">Members</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/subjects">Subject</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/tutors">Tutor</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/jams">Jam</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/ruangans">Ruangan</a>
+    </li>
+@endsection
 @section('content')
 
 
@@ -32,10 +51,25 @@
                         @enderror
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <strong>List subject:</strong>
+                        <select class="js-example-basic-multiple" style="width:100%" multiple="multiple" name="list_subject[]">
+                            <option value="0">Pilih Member</option>
+                            @foreach ($subject as $s)
+                            
+                               <option value="{{ $s->id }}">{{ $s->nama_subject }}</option>
+                            @endforeach
+                         </select>
+                        @error('id_jam')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>List Member:</strong>
-                        <select class="form-control" multiple data-live-search="true" name="list_member[]">
+                        <select class="js-example-basic-multiple" style="width:100%" multiple="multiple" name="list_member[]">
                             <option value="0">Pilih Member</option>
                             @foreach ($member as $m)
                             
@@ -96,4 +130,10 @@
             </div>
         </form>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+            
+        });
+    </script>
 @endsection

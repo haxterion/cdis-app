@@ -1,6 +1,25 @@
 @extends('master')
 @section('title', 'Tambah Ruangan - CDIS')
-
+@section('menu')
+    <li class="nav-item">
+        <a class="nav-link" href="/kloters">Kloter</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/members">Members</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/subjects">Subject</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/tutors">Tutor</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/jams">Jam</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="/ruangans">Ruangan</a>
+    </li>
+@endsection
 @section('content')
 
 

@@ -20,7 +20,7 @@ use App\Http\Controllers\MemberController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/kloters');
 });
 
 Route::resource('jams', JamController::class);

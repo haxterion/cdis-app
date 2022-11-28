@@ -19,9 +19,8 @@ use App\Http\Controllers\MemberController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/kloters');
-});
+Route::get('/', [KloterController::class, 'home']);
+
 
 Route::resource('jams', JamController::class);
 Route::resource('tutors', TutorController::class);

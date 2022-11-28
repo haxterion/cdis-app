@@ -14,6 +14,17 @@ use Illuminate\Support\Facades\DB;
 
 class KloterController extends Controller
 {
+    public function home()
+    {
+       $kloter = Kloter::count();
+       $member = Member::count();
+       $jam = Jam::count();
+       $subject = Subject::count();
+       $ruangan = Ruangan::count();
+       $tutor = Tutor::count();
+
+       return view('home', compact('kloter','member','jam','subject','ruangan','tutor'));
+    }
     public function index()
     {
         $kloter = Kloter::orderBy('id', 'desc')->get();

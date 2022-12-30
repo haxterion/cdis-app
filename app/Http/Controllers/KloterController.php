@@ -11,6 +11,7 @@ use App\Models\Tutor;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\DB;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class KloterController extends Controller
 {
@@ -140,8 +141,7 @@ class KloterController extends Controller
             'list_subject' => 'required',
             'id_tutor' => 'required',
         ]);
-        $req = json_decode($request);
-        // dd($kloter->id);
+
         $ll = json_encode($request->list_member);
         $ls = json_encode($request->list_subject);
         $kloter = Kloter::find($kloter->id);
@@ -152,6 +152,7 @@ class KloterController extends Controller
         $kloter->list_member = $ll;
         $kloter->list_subject = $ls;
         $kloter->save();
+
 
         return redirect()->route('kloters.index')->with('success', 'Kloter telah diupdate');
     }
@@ -166,5 +167,12 @@ class KloterController extends Controller
     {
         $kloter->delete();
         return redirect()->route('kloters.index')->with('success', 'Kloter telah dihapus');
+    }
+
+    public function deleteAllData()
+    {
+        DB::table('kloters')->delete();
+        Alert::success('Congrats', 'Data berhasil dihapus');
+        return back();
     }
 }

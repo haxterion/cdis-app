@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\SubjectExport;
+use App\Imports\SubjectImport;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SubjectController extends Controller
 {
     public function index()
     {
-        $subject = Subject::orderBy('id','desc')->paginate(5);
+        $subject = Subject::orderBy('id','ASC')->get();
         return view('subjects.index', compact('subject'));
     }
 
@@ -91,4 +96,22 @@ class SubjectController extends Controller
         $subject->delete();
         return redirect()->route('subjects.index')->with('success','Subject telah dihapus');
     }
+    public function fileImport(Request $request)
+    {
+        Excel::import(new SubjectImport, $request->file('file')->store('temp'));
+        return back();
+    }
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function fileExport()
+    {
+        return Excel::download(new SubjectExport, 'users-collection.xlsx');
+    }
+    public function deleteAllData()
+    {
+        DB::table('subjects')->delete();
+        Alert::success('Congrats', 'Data berhasil dihapus');
+        return back();
+    }   
 }

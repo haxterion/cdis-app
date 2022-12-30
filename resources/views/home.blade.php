@@ -134,12 +134,7 @@
     
 
     <footer class="text-muted py-5">
-        <div class="container">
-
-            <p class="mb-1 fw-bold"> &copy; GE | Global English Pare 2022</p>
-            <p class="mb-0 fw-bold">Aplikasi Ini di Buat Oleh Mr.Rizal Dan Amik Taruna Team </p>
-            <p><a href="https://globalenglish.co.id/">Go To Website</a> </p>
-        </div>
+        
     </footer>
 
 

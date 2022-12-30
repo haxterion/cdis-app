@@ -2,14 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TutorExport;
+use App\Imports\TutorImport;
 use App\Models\Tutor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class TutorController extends Controller
 {
     public function index()
     {
-        $tutor = Tutor::orderBy('id','desc')->paginate(5);
+        $tutor = Tutor::orderBy('id','ASC')->get();
         return view('tutors.index', compact('tutor'));
     }
 
@@ -91,4 +96,23 @@ class TutorController extends Controller
         $tutor->delete();
         return redirect()->route('tutors.index')->with('success','Tutor telah dihapus');
     }
+
+    public function fileImport(Request $request)
+    {
+        Excel::import(new TutorImport, $request->file('file')->store('temp'));
+        return back();
+    }
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function fileExport()
+    {
+        return Excel::download(new TutorExport, 'users-collection.xlsx');
+    }
+    public function deleteAllData()
+    {
+        DB::table('tutors')->delete();
+        Alert::success('Congrats', 'Data berhasil dihapus');
+        return back();
+    } 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AbsensiMember;
 use App\Models\Jam;
 use App\Models\Kloter;
 use App\Models\Member;
@@ -17,14 +18,14 @@ class KloterController extends Controller
 {
     public function home()
     {
-       $kloter = Kloter::count();
-       $member = Member::count();
-       $jam = Jam::count();
-       $subject = Subject::count();
-       $ruangan = Ruangan::count();
-       $tutor = Tutor::count();
+        $kloter = Kloter::count();
+        $member = Member::count();
+        $jam = Jam::count();
+        $subject = Subject::count();
+        $ruangan = Ruangan::count();
+        $tutor = Tutor::count();
 
-       return view('home', compact('kloter','member','jam','subject','ruangan','tutor'));
+        return view('home', compact('kloter', 'member', 'jam', 'subject', 'ruangan', 'tutor'));
     }
     public function index()
     {
@@ -47,7 +48,7 @@ class KloterController extends Controller
         $subject = Subject::all();
         $ruangan = Ruangan::all();
         $tutor = Tutor::all();
-        return view('kloters.create', compact('jam', 'ruangan', 'tutor', 'member','subject'));
+        return view('kloters.create', compact('jam', 'ruangan', 'tutor', 'member', 'subject'));
     }
 
     /**
@@ -60,16 +61,19 @@ class KloterController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'periode' => 'required',
             'id_jam' => 'required',
             'id_ruangan' => 'required',
             'id_tutor' => 'required',
             'list_member' => 'required',
-            'list_subject' => 'required'
         ]);
+        
         $lm = json_encode($request->list_member);
+        // dd($lm);
         $ls = json_encode($request->list_subject);
         $kloter = new Kloter;
         $kloter->nama = $request->nama;
+        $kloter->periode = $request->periode;
         $kloter->id_jam = $request->id_jam;
         $kloter->id_ruangan = $request->id_ruangan;
         $kloter->id_tutor = $request->id_tutor;
@@ -80,6 +84,9 @@ class KloterController extends Controller
         return redirect()->route('kloters.index')->with('success', 'Kloter telah ditambahkan.');
     }
 
+    public function lihatAbsen(Kloter $kloter)
+    {
+    }
     /**
      * Display the specified resource.
      *
@@ -94,7 +101,7 @@ class KloterController extends Controller
         $ls = json_decode($kloter->list_subject, true);
         $subject = Subject::whereIn('id', $ls)->get();
         $sl = json_decode($subject);
-        return view('kloters.show', compact('kloter', 'member', 'ml','subject','sl'));
+        return view('kloters.show', compact('kloter', 'member', 'ml', 'subject', 'sl'));
     }
 
     /**
@@ -121,7 +128,7 @@ class KloterController extends Controller
 
         // dd($lm);
 
-        return view('kloters.edit', compact('ls','sl','subject','sub','sc','kloter', 'jam', 'ruangan', 'tutor', 'member', 'dc', 'lm', 'mem'));
+        return view('kloters.edit', compact('ls', 'sl', 'subject', 'sub', 'sc', 'kloter', 'jam', 'ruangan', 'tutor', 'member', 'dc', 'lm', 'mem'));
     }
 
     /**
@@ -135,10 +142,10 @@ class KloterController extends Controller
     {
         $request->validate([
             'nama' => 'required',
+            'periode' => 'required',
             'id_jam' => 'required',
             'id_ruangan' => 'required',
             'list_member' => 'required',
-            'list_subject' => 'required',
             'id_tutor' => 'required',
         ]);
 
@@ -146,6 +153,7 @@ class KloterController extends Controller
         $ls = json_encode($request->list_subject);
         $kloter = Kloter::find($kloter->id);
         $kloter->nama = $request->nama;
+        $kloter->periode = $request->periode;
         $kloter->id_jam = $request->id_jam;
         $kloter->id_ruangan = $request->id_ruangan;
         $kloter->id_tutor = $request->id_tutor;

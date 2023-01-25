@@ -32,6 +32,15 @@
                         @enderror
                     </div>
                 </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Periode Kloter:</strong>
+                        <input type="text" name="periode" class="form-control" placeholder="Periode Kloter">
+                        @error('periode_kloter')
+                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                        @enderror
+                    </div>
+                </div>
                 <div class="col-xs-6 col-sm-6 col-md-6">
                     <div class="form-group">
                         <strong>List subject:</strong>

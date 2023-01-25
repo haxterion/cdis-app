@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiMemberController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JamController;
 use App\Http\Controllers\TutorController;
@@ -23,7 +24,10 @@ use App\Http\Controllers\CariMemberController;
 Route::group(
     ['namespace' => 'App\Http\Controllers'],
     function () {
-
+        Route::controller(AbsensiMemberController::class)->group(function () {
+            Route::get('absensimember', 'index');
+            Route::get('autocomplete', 'autocomplete')->name('autocomplete');
+        });
         Route::get('/', [KloterController::class, 'home']);
         Route::get('/cari', [CariMemberController::class, 'index']);
         Route::get('/cari/autocomplete-search', [CariMemberController::class, 'autocompleteSearch']);

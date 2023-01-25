@@ -66,7 +66,7 @@
                         <tr>
                             <th>S.No</th>
                             <th>Nama Kloter</th>
-                            <th>List Subject</th>
+                            <th>Periode</th>
                             <th>Jam</th>
                             <th>Ruangan</th>
                             <th>Kapasitas Member</th>
@@ -83,7 +83,7 @@
                             <tr>
                                 <td>{{ $no++ }}</td>
                                 <td>{{ $j->nama }}</td>
-                                <td><a class="btn btn-warning" href="{{ route('kloters.show', $j->id) }}">Lihat List</a>
+                                <td>{{ $j->periode }}
                                 </td>
                                 <td>
                                     {{ $j->sesijam->sesi_jam }}
